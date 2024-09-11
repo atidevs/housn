@@ -1,12 +1,14 @@
 <main>
-  <header class="brand-name">
-    <div style="display: flex;">
-      <img class="brand-logo" width="32" height="32" src="assets/housn.png" alt="Housn logo" aria-hidden="true">
-      <p style="margin-left: 10px;">Housn</p>
-    </div>
-  </header>
+  <a [routerLink]="['/']">
+    <header class="brand-name">
+      <div style="display: flex;">
+        <img class="brand-logo" width="32" height="32" src="assets/housn.png" alt="Housn logo" aria-hidden="true">
+        <p style="margin-left: 10px;">Housn</p>
+      </div>
+    </header>
+  </a>
   <section class="content">
-    <app-home></app-home>
+    <router-outlet></router-outlet>
   </section>
 </main>
 

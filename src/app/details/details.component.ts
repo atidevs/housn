@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { AfterViewInit, Component, inject, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
@@ -13,21 +13,31 @@ import { HousingLocation } from '../housinglocation';
   templateUrl: './details.component.html',
   styleUrl: './details.component.css'
 })
-export class DetailsComponent {
+export class DetailsComponent implements AfterViewInit {
 
   route: ActivatedRoute = inject(ActivatedRoute);
   housingService: HousingService = inject(HousingService);
-  housingLocation: HousingLocation | undefined
+
+  housingLocation: HousingLocation | undefined;
 
   applyForm = new FormGroup({
     firstName: new FormControl(''),
     lastName: new FormControl(''),
     email: new FormControl(''),
   });
-  
+
   constructor() {
     const housingLocationId = Number(this.route.snapshot.params['id']);
-    this.housingLocation = this.housingService.getHousingLocationById(housingLocationId);
+    this.housingService.getHousingLocationById(housingLocationId).then(
+      (housingLocation) => {
+        this.housingLocation = housingLocation;
+        console.log(housingLocation);
+      }
+    );
+  }
+
+  ngAfterViewInit() {
+    console.log("property housingLocation: " + this.housingLocation);
   }
 
   submitApplication() {
